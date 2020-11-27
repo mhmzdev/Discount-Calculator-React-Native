@@ -10,35 +10,53 @@ import {
 
 const App = () => {
 
-  const [originalPrice, setOriginalPrice] = useState(0);
-  const [discountPrc, setDicountPrc] = useState(0);
-  const [savedAmount, setSavedAmount] = useState(0);
-  const [finalPrice, setFinalPrice] = useState(0);
+  const [originalPrice, setOriginalPrice] = useState("");
+  const [discountPrc, setDicountPrc] = useState("");
+  const [savedAmount, setSavedAmount] = useState("0");
+  const [finalPrice, setFinalPrice] = useState("0");
+
+  const [calError, setCalError] = useState("");
 
   calculateDiscount = () => {
-    var saved = (originalPrice * discountPrc) / 100;
-    var final_Price = originalPrice - saved;
-    setSavedAmount(saved);
-    setFinalPrice(final_Price);
+    if (discountPrc <= 100 && originalPrice >= 0 && discountPrc >= 0) {
+      var saved = (originalPrice * discountPrc) / 100;
+      var final_Price = originalPrice - saved;
+      setSavedAmount(saved.toFixed(2));
+      setFinalPrice(final_Price.toFixed(2));
+      setOriginalPrice("");
+      setDicountPrc("");
+      setCalError("")
+    } else if (discountPrc > 100) {
+      setCalError("Discount Cannot be greater than 100%");
+    } else if (originalPrice < 0 || discountPrc < 0) {
+      setCalError("Original Price or Discount Price must be greater than 0")
+    }
   }
 
   return (
-    <View style={styles.mainView}>
-      <TextInput keyboardType={"number-pad"} onChangeText={(orgPrice) => setOriginalPrice(orgPrice)} style={styles.textFields} placeholder={"Original Price"} />
-      <View style={{ paddingTop: 10 }} />
-      <TextInput keyboardType={"number-pad"} onChangeText={(discountPercentage) => setDicountPrc(discountPercentage)} style={styles.textFields} placeholder={"Discount %"} />
-      <View style={{ paddingTop: 10 }} />
-      <TouchableOpacity onPress={() => calculateDiscount()} style={styles.calcBtn}>
-        <Text style={styles.calcBtnText}>Calculate</Text>
-      </TouchableOpacity>
-      <View style={{ paddingTop: 50 }} />
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.resultText}>Final Price :</Text>
-        <Text style={styles.finalPriceText}> Rs {finalPrice}</Text>
+    <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Discount Calculator</Text>
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.resultText}>You Saved :</Text>
-        <Text style={styles.finalPriceText}> Rs {savedAmount}</Text>
+      <View style={styles.mainView}>
+        <TextInput keyboardType={"number-pad"} value={originalPrice} onChangeText={(orgPrice) => setOriginalPrice(orgPrice)} style={styles.textFields} placeholder={"Original Price"} />
+        <View style={{ paddingTop: 10 }} />
+        <TextInput keyboardType={"number-pad"} value={discountPrc} onChangeText={(discountPercentage) => setDicountPrc(discountPercentage)} style={styles.textFields} placeholder={"Discount %"} />
+        <View style={{ paddingTop: 20 }} />
+        <TouchableOpacity onPress={() => calculateDiscount()} style={styles.calcBtn}>
+          <Text style={styles.calcBtnText}>Calculate</Text>
+        </TouchableOpacity>
+        <View style={{ paddingTop: 10 }} />
+        <Text style={{ fontSize: 15, color: 'red' }}>{calError}</Text>
+        <View style={{ paddingTop: 10 }} />
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.resultText}>Final Price :</Text>
+          <Text style={styles.finalPriceText}> Rs {finalPrice}</Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.resultText}>You Saved :</Text>
+          <Text style={[styles.finalPriceText, { color: 'green' }]}> Rs {savedAmount}</Text>
+        </View>
       </View>
 
     </View>
@@ -46,6 +64,16 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#CB4335',
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  headerText: {
+    fontSize: 24,
+    color: 'white'
+  },
   mainView: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -63,7 +91,7 @@ const styles = StyleSheet.create({
   calcBtn: {
     height: 50,
     width: 200,
-    backgroundColor: '#388E3C',
+    backgroundColor: '#CB4335',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
