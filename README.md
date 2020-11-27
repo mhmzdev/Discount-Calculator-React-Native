@@ -2,15 +2,12 @@
 
 A very simple Discount Calculator. That will let you Save your Recent results in case you are moving across various shops in the mall.
 
+ <img width="15px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png"> ```Developed with React Native```
+
 ## 👀 Screenshots
 
 <img src="https://user-images.githubusercontent.com/43790152/100423624-1a61ec80-30ae-11eb-809a-b73d95075dd9.png" width=240 height=450> <img src="https://user-images.githubusercontent.com/43790152/100423674-31a0da00-30ae-11eb-8e00-8799a02b9e48.png" width=240 height=450> <img src="https://user-images.githubusercontent.com/43790152/100423693-3a91ab80-30ae-11eb-85c3-44b37c81743e.png" width=240 height=450>
 
-## 💻 Developed with
-
-<p style="font-size: 20px">
-    <img width="15px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png"> React Native is used to develop this app :)
-</P>
 
 ## 🔑 LICENSE
 - This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
