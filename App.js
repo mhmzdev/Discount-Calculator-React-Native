@@ -12,8 +12,8 @@ const App = () => {
 
   const [originalPrice, setOriginalPrice] = useState("");
   const [discountPrc, setDicountPrc] = useState("");
-  const [savedAmount, setSavedAmount] = useState("0");
-  const [finalPrice, setFinalPrice] = useState("0");
+  const [savedAmount, setSavedAmount] = useState("0.00");
+  const [finalPrice, setFinalPrice] = useState("0.00");
 
   const [calError, setCalError] = useState("");
 
@@ -29,8 +29,12 @@ const App = () => {
     } else if (discountPrc > 100) {
       setCalError("Discount Cannot be greater than 100%");
     } else if (originalPrice < 0 || discountPrc < 0) {
-      setCalError("Original Price or Discount Price must be greater than 0")
+      setCalError("Original Price or Discount Price must be greater than 0");
     }
+  }
+
+  saveResult = () => {
+
   }
 
   return (
@@ -57,6 +61,10 @@ const App = () => {
           <Text style={styles.resultText}>You Saved :</Text>
           <Text style={[styles.finalPriceText, { color: 'green' }]}> Rs {savedAmount}</Text>
         </View>
+        <View style={{ paddingTop: 15 }} />
+        <TouchableOpacity onPress={() => saveResult()} style={styles.saveBtn}>
+          <Text style={styles.saveBtnText}>Save Result</Text>
+        </TouchableOpacity>
       </View>
 
     </View>
@@ -68,7 +76,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#CB4335',
     height: 60,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOpacity: 0.8,
+    elevation: 8.0,
+    shadowRadius: 15,
+    shadowOffset: { width: 1, height: 13 },
   },
   headerText: {
     fontSize: 24,
@@ -106,7 +119,19 @@ const styles = StyleSheet.create({
   finalPriceText: {
     fontSize: 20,
     fontWeight: "bold"
-  }
+  },
+  saveBtn: {
+    height: 35,
+    width: 150,
+    backgroundColor: '#388E3C',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  saveBtnText: {
+    fontSize: 18,
+    color: 'white'
+  },
 });
 
 export default App;
