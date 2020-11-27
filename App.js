@@ -38,8 +38,8 @@ const App = () => {
   }
 
   saveResult = () => {
-    var dash = "--";
-    var result = originalPrice + dash + discountPrc + "% " + dash + finalPrice;
+    var dash = " | ";
+    var result = "Rs: " + originalPrice + dash + discountPrc + "% " + dash + "Rs: " + finalPrice;
     console.log(result);
     setHistory(oldHistory => [...history, result]);
 
@@ -97,8 +97,9 @@ const App = () => {
               <Text style={styles.modalHeading}>Discount History</Text>
               <Text style={styles.firstIndexHistoryText}>Original Price | Discount% | Final Price</Text>
               <FlatList
+
                 data={history}
-                renderItem={({ item }) => { return <Text>{item}</Text> }}
+                renderItem={({ item }) => { return <Text style={styles.listTextItem}>{item}</Text> }}
                 keyExtractor={(index) => { return index }} />
 
               <TouchableOpacity
@@ -239,6 +240,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#566573'
   },
+  listTextItem: {
+    fontSize: 18
+  }
 });
 
 export default App;
