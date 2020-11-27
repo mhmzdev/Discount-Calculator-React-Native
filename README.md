@@ -1,4 +1,4 @@
-<h1 align="center" style="font-size: 34px;" > Discount Calculator - React Native</h1>
+<h1 align="center" style="font-size: 52px;" ><img height=35 src="https://user-images.githubusercontent.com/43790152/100424316-39ad4980-30af-11eb-9364-b1e139768e8c.png"> Discount Calculator</h1>
 
 A very simple Discount Calculator. That will let you Save your Recent results in case you are moving across various shops in the mall.
 
