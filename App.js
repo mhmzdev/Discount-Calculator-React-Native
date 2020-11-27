@@ -17,14 +17,15 @@ const App = () => {
 
   const [calError, setCalError] = useState("");
 
+  const [history, setHistory] = useState(["Original Price - Discount % - Final Price"]);
+
+
   calculateDiscount = () => {
     if (discountPrc <= 100 && originalPrice >= 0 && discountPrc >= 0) {
       var saved = (originalPrice * discountPrc) / 100;
       var final_Price = originalPrice - saved;
       setSavedAmount(saved.toFixed(2));
       setFinalPrice(final_Price.toFixed(2));
-      setOriginalPrice("");
-      setDicountPrc("");
       setCalError("")
     } else if (discountPrc > 100) {
       setCalError("Discount Cannot be greater than 100%");
@@ -34,7 +35,13 @@ const App = () => {
   }
 
   saveResult = () => {
+    var dash = "--";
+    var result = originalPrice + dash + discountPrc + "% " + dash + finalPrice;
+    console.log(result);
+    setHistory(oldHistory => [...history, result]);
 
+    setOriginalPrice("");
+    setDicountPrc("");
   }
 
   return (
