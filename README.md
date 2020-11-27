@@ -1,4 +1,4 @@
-<h1 align="center" style="font-size: 48px;" ><img height=30 src="https://user-images.githubusercontent.com/43790152/100424316-39ad4980-30af-11eb-9364-b1e139768e8c.png"> Discount Calculator</h1>
+<h1 align="center" style="font-size: 48px;" ><img height=30 src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png"> Discount Calculator</h1>
 
 A very simple Discount Calculator. That will let you Save your Recent results in case you are moving across various shops in the mall.
 
