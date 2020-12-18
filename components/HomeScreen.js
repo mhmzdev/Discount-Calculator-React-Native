@@ -6,27 +6,17 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
-
-// options={{
-//             headerShown: false,
-//             title: 'My home',
-//             headerStyle: {
-//               backgroundColor: '#33bf5c',
-//             },
-//             headerTintColor: '#fff',
-//             headerTitleStyle: {
-//               fontWeight: 'bold',
-//             },
-//           }}
 
 export default function HomeScreen({ navigation, route }) {
   // All States
-  const [originalPrice, setOriginalPrice] = useState('0.00');
+  const [originalPrice, setOriginalPrice] = useState('');
   const [discountPrc, setDicountPrc] = useState('');
   const [savedAmount, setSavedAmount] = useState('0.00');
   const [finalPrice, setFinalPrice] = useState('0.00');
   const [calError, setCalError] = useState('');
+  const [history, setHistory] = useState([]);
 
   const calculateDiscount = () => {
     if (discountPrc < 100 && originalPrice >= 0 && discountPrc >= 0) {
@@ -35,11 +25,27 @@ export default function HomeScreen({ navigation, route }) {
       setSavedAmount(saved.toFixed(2));
       setFinalPrice(final_Price.toFixed(2));
       setCalError('');
-    } else if (discountPrc >= 100) {
-      setCalError('Discount Cannot be greater than 99%');
-    } else if (originalPrice < 0 || discountPrc < 0) {
-      setCalError('Original Price or Discount Price must be greater than 0');
+    } else if (originalPrice < 0) {
+      setCalError('Original Price must be Greater than 0');
+    } else if (discountPrc < 0) {
+      setCalError('Discount% must be Greater than 0');
     }
+  };
+
+  const saveResult = () => {
+    const resultObj = {
+      original_Price: originalPrice,
+      dicount_Percentage: discountPrc,
+      final_Price_Var: finalPrice,
+    };
+    console.log(resultObj.original_Price);
+    console.log(resultObj.dicount_Percentage);
+    console.log(resultObj.final_Price_Var);
+
+    setHistory((oldHistory) => [...oldHistory, resultObj]);
+
+    setOriginalPrice('');
+    setDicountPrc('');
   };
 
   return (
@@ -60,11 +66,15 @@ export default function HomeScreen({ navigation, route }) {
           Rs {savedAmount}
         </Text>
       </View>
-      <View style={{ marginTop: 30 }} />
+
+      <View style={{ marginTop: 10 }} />
+      <Text style={{ fontSize: 15, color: '#E74C3C' }}>{calError}</Text>
+      <View style={{ marginTop: 10 }} />
 
       {/* Text Fields */}
       <TextInput
         keyboardType={'number-pad'}
+        value={originalPrice}
         onChangeText={(orgPrice) => setOriginalPrice(orgPrice)}
         style={styles.textFields}
         placeholder={'Original Price'}
@@ -72,6 +82,7 @@ export default function HomeScreen({ navigation, route }) {
       />
       <View style={{ paddingTop: 10 }} />
       <TextInput
+        value={discountPrc}
         keyboardType={'number-pad'}
         onChangeText={(discountPercentage) => setDicountPrc(discountPercentage)}
         style={styles.textFields}
@@ -85,6 +96,24 @@ export default function HomeScreen({ navigation, route }) {
         onPress={() => calculateDiscount()}
         style={styles.calcBtn}>
         <Text style={styles.calcBtnText}>Calculate</Text>
+      </TouchableOpacity>
+
+      <View style={{ paddingTop: 20 }} />
+
+      <TouchableOpacity onPress={() => saveResult()} style={styles.saveBtn}>
+        <Text style={styles.saveBtnText}>Save Result</Text>
+      </TouchableOpacity>
+
+      <View style={{ paddingTop: 80 }} />
+
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('History', {
+            historyObject: history,
+          })
+        }
+        style={styles.historyBtn}>
+        <Text style={styles.historyBtnText}>View History</Text>
       </TouchableOpacity>
     </View>
   );
@@ -124,6 +153,32 @@ const styles = StyleSheet.create({
   calcBtnText: {
     fontSize: 20,
     color: 'white',
+  },
+  saveBtn: {
+    height: 40,
+    width: 200,
+    borderColor: '#33bf5c',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    borderWidth: 1,
+  },
+  saveBtnText: {
+    fontSize: 18,
+    color: 'white',
+  },
+  historyBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#305746',
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 30,
+    width: 100,
+  },
+  historyBtnText: {
+    fontSize: 13,
+    color: '#b5c1c6',
   },
   resultText: {
     fontSize: 25,
