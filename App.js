@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import HomeScreen from './components/homeView';
+import { NavigationContainer } from '@react-navigation/native';
 
+const Stack = createStackNavigator();
 export default function App() {
-
   return (
-    <View styles={styles.mainView}>
-      <Text>Hamza Here</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  mainView: {
-    flex: 1,
-    alignItem: 'center',
-    justifyContent: 'center',
-  }
-});
