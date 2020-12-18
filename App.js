@@ -6,18 +6,33 @@ import { Text, View, StyleSheet } from 'react-native';
 
 // You can import from local files
 import HomeScreen from './components/HomeScreen';
+import History from './components/History';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Discount Calculator">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="Discount Calculator"
+          name="Home"
           component={HomeScreen}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="History"
+          component={History}
+          options={{
+            title: 'History',
+            headerStyle: {
+              backgroundColor: '#33bf5c',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
           }}
         />
       </Stack.Navigator>
