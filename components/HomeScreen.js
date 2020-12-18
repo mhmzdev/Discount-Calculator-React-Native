@@ -22,14 +22,25 @@ import {
 
 export default function HomeScreen({ navigation, route }) {
   // All States
-  const [originalPrice, setOriginalPrice] = useState('');
+  const [originalPrice, setOriginalPrice] = useState('0.00');
   const [discountPrc, setDicountPrc] = useState('');
   const [savedAmount, setSavedAmount] = useState('0.00');
   const [finalPrice, setFinalPrice] = useState('0.00');
-
   const [calError, setCalError] = useState('');
 
-  const [history, setHistory] = useState(['']);
+  const calculateDiscount = () => {
+    if (discountPrc < 100 && originalPrice >= 0 && discountPrc >= 0) {
+      var saved = (originalPrice * discountPrc) / 100;
+      var final_Price = originalPrice - saved;
+      setSavedAmount(saved.toFixed(2));
+      setFinalPrice(final_Price.toFixed(2));
+      setCalError('');
+    } else if (discountPrc >= 100) {
+      setCalError('Discount Cannot be greater than 99%');
+    } else if (originalPrice < 0 || discountPrc < 0) {
+      setCalError('Original Price or Discount Price must be greater than 0');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -37,6 +48,7 @@ export default function HomeScreen({ navigation, route }) {
       <Text style={styles.heading}>Discount Calculator</Text>
       <View style={{ marginTop: 80 }} />
 
+      {/* Output Results */}
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.resultText}>Final Price :</Text>
         <Text style={styles.finalPriceText}> Rs {finalPrice}</Text>
@@ -50,9 +62,9 @@ export default function HomeScreen({ navigation, route }) {
       </View>
       <View style={{ marginTop: 30 }} />
 
+      {/* Text Fields */}
       <TextInput
         keyboardType={'number-pad'}
-        value={originalPrice}
         onChangeText={(orgPrice) => setOriginalPrice(orgPrice)}
         style={styles.textFields}
         placeholder={'Original Price'}
@@ -61,16 +73,17 @@ export default function HomeScreen({ navigation, route }) {
       <View style={{ paddingTop: 10 }} />
       <TextInput
         keyboardType={'number-pad'}
-        value={discountPrc}
         onChangeText={(discountPercentage) => setDicountPrc(discountPercentage)}
         style={styles.textFields}
         placeholder={'Discount %'}
         placeholderTextColor="#b5c1c6"
-        maxLength={3}
+        maxLength={2}
       />
       <View style={{ paddingTop: 20 }} />
 
-      <TouchableOpacity onPress={() => {}} style={styles.calcBtn}>
+      <TouchableOpacity
+        onPress={() => calculateDiscount()}
+        style={styles.calcBtn}>
         <Text style={styles.calcBtnText}>Calculate</Text>
       </TouchableOpacity>
     </View>
@@ -86,7 +99,8 @@ const styles = StyleSheet.create({
   heading: {
     color: 'white',
     fontSize: 32,
-    fontStyle: 'italic',
+    fontWeight: '100',
+    letterSpacing: 2,
   },
   textFields: {
     height: 50,
