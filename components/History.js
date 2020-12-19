@@ -23,8 +23,10 @@ export default function History({ navigation, route }) {
     }
   };
 
-  const removeRecord = (index) => {
-    setDataObj(delete dataObj[index]);
+  const removeRecord = (itemID) => {
+      setDataObj((currentItems) => {
+        return currentItems.filter((item) => item.id !== itemID);
+      });
   };
 
   return (
@@ -43,7 +45,7 @@ export default function History({ navigation, route }) {
           renderItem={({ item, index }) => {
             if (item != undefined) {
               return (
-                <TouchableOpacity onPress={() => removeRecord(index)}>
+                <TouchableOpacity onPress={() => removeRecord(item.id)}>
                   <DataTable.Row>
                     <DataTable.Cell>Rs {item.original_Price}</DataTable.Cell>
                     <DataTable.Cell numeric>
