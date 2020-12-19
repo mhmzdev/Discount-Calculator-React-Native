@@ -29,17 +29,17 @@ export default function History({ navigation, route }) {
           data={dataObj}
           renderItem={({ item }) => {
             return (
-              <View>
+              <TouchableOpacity onPress={() => {}}>
                 <DataTable.Row>
-                  <DataTable.Cell>{item.original_Price}</DataTable.Cell>
+                  <DataTable.Cell>Rs {item.original_Price}</DataTable.Cell>
                   <DataTable.Cell numeric>
                     {item.discount_Percentage}%
                   </DataTable.Cell>
                   <DataTable.Cell numeric>
-                    {item.final_Price_Var}
+                    Rs {item.final_Price_Var}
                   </DataTable.Cell>
                 </DataTable.Row>
-              </View>
+              </TouchableOpacity>
             );
           }}
           keyExtractor={(index) => {
@@ -47,6 +47,9 @@ export default function History({ navigation, route }) {
           }}
         />
       </DataTable>
+      <TouchableOpacity onPress={() => {}} style={styles.clearHistoryBtn}>
+        <Text style={styles.clearHistoryBtnText}>Clear History</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -55,7 +58,21 @@ const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: '20',
     // backgroundColor: 'black',
+  },
+  clearHistoryBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#E74C3C',
+    borderWidth: 1,
+    borderRadius: 5,
+    height: 30,
+    width: 100,
+  },
+  clearHistoryBtnText: {
+    fontSize: 13,
+    color: '#b5c1c6',
   },
 });

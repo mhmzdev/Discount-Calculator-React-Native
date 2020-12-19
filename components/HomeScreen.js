@@ -1,5 +1,9 @@
 import * as React from 'react';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 import { useState } from 'react';
+
 import {
   Text,
   View,
@@ -10,6 +14,10 @@ import {
 } from 'react-native';
 
 export default function HomeScreen({ navigation, route }) {
+  let [fontsLoaded] = useFonts({
+    Pacifico: require('./assets/fonts/Pacifico.ttf'),
+  });
+
   // All States
   const [originalPrice, setOriginalPrice] = useState('');
   const [discountPrc, setDicountPrc] = useState('');
@@ -18,100 +26,149 @@ export default function HomeScreen({ navigation, route }) {
   const [calError, setCalError] = useState('');
   const [history, setHistory] = useState([]);
 
+  const [saveBtnState, setSaveBtnState] = useState(true);
+
   const calculateDiscount = () => {
-    if (discountPrc < 100 && originalPrice >= 0 && discountPrc >= 0) {
-      var saved = (originalPrice * discountPrc) / 100;
-      var final_Price = originalPrice - saved;
-      setSavedAmount(saved.toFixed(2));
-      setFinalPrice(final_Price.toFixed(2));
-      setCalError('');
-    } else if (originalPrice < 0) {
-      setCalError('Original Price must be Greater than 0');
-    } else if (discountPrc < 0) {
-      setCalError('Discount% must be Greater than 0');
+    if (originalPrice != '' || discountPrc != '') {
+      if (discountPrc <= 100 && originalPrice >= 0 && discountPrc >= 0) {
+        var saved = (originalPrice * discountPrc) / 100;
+        var final_Price = originalPrice - saved;
+        setSavedAmount(saved.toFixed(2));
+        setFinalPrice(final_Price.toFixed(2));
+        setCalError('');
+      } else if (discountPrc > 100) {
+        setCalError('Discount must be less than 100%');
+      } else if (originalPrice < 0) {
+        setCalError('Original Price must be Greater than 0');
+      } else if (discountPrc < 0) {
+        setCalError('Discount% must be Greater than 0');
+      }
+    } else {
+      setCalError('Empty Field(s) Found!');
     }
   };
 
   const saveResult = () => {
-    const resultObj = {
-      original_Price: originalPrice,
-      discount_Percentage: discountPrc,
-      final_Price_Var: finalPrice,
-    };
-    setHistory((oldHistory) => [...oldHistory, resultObj]);
-    setOriginalPrice('');
-    setDicountPrc('');
+    if (originalPrice != '' || discountPrc != '') {
+      const resultObj = {
+        original_Price: originalPrice,
+        discount_Percentage: discountPrc,
+        final_Price_Var: finalPrice,
+      };
+
+      setHistory((oldHistory) => [...oldHistory, resultObj]);
+      setOriginalPrice('');
+      setDicountPrc('');
+      setSaveBtnState(true);
+    }
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={{ marginTop: 100 }} />
-      <Text style={styles.heading}>Discount Calculator</Text>
-      <View style={{ marginTop: 80 }} />
-
-      {/* Output Results */}
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.resultText}>Final Price :</Text>
-        <Text style={styles.finalPriceText}> Rs {finalPrice}</Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.resultText}>You Saved :</Text>
-        <Text style={[styles.finalPriceText, { color: '#33bf5c' }]}>
-          {' '}
-          Rs {savedAmount}
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={{ marginTop: 100 }} />
+        <Text style={[styles.heading, { fontFamily: 'Pacifico' }]}>
+          Discount Calculator
         </Text>
+        <View style={{ marginTop: 80 }} />
+
+        {/* Output Results */}
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.resultText}>Final Price :</Text>
+          <Text style={styles.finalPriceText}> Rs {finalPrice}</Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.resultText}>You Saved :</Text>
+          <Text style={[styles.finalPriceText, { color: '#33bf5c' }]}>
+            {' '}
+            Rs {savedAmount}
+          </Text>
+        </View>
+
+        <View style={{ marginTop: 10 }} />
+        <Text style={{ fontSize: 15, color: '#E74C3C' }}>{calError}</Text>
+        <View style={{ marginTop: 10 }} />
+
+        {/* Text Fields */}
+        <TextInput
+          keyboardType={'number-pad'}
+          value={originalPrice}
+          onChangeText={(orgPrice) => {
+            orgPrice == '' ? setSaveBtnState(true) : setSaveBtnState(false);
+            setOriginalPrice(orgPrice);
+          }}
+          style={styles.textFields}
+          placeholder={'Original Price'}
+          placeholderTextColor="#b5c1c6"
+        />
+        <View style={{ paddingTop: 10 }} />
+        <TextInput
+          value={discountPrc}
+          keyboardType={'number-pad'}
+          onChangeText={(discountPercentage) => {
+            discountPercentage == ''
+              ? setSaveBtnState(true)
+              : setSaveBtnState(false);
+            setDicountPrc(discountPercentage);
+          }}
+          style={styles.textFields}
+          placeholder={'Discount %'}
+          placeholderTextColor="#b5c1c6"
+        />
+        <View style={{ paddingTop: 20 }} />
+
+        <TouchableOpacity
+          onPress={() => calculateDiscount()}
+          style={styles.calcBtn}>
+          <Text style={styles.calcBtnText}>Calculate</Text>
+        </TouchableOpacity>
+
+        <View style={{ paddingTop: 20 }} />
+
+        <TouchableOpacity
+          disabled={saveBtnState}
+          onPress={() => saveResult()}
+          style={[
+            styles.saveBtn,
+            saveBtnState == true
+              ? {
+                  borderColor: '#305746',
+                }
+              : {
+                  borderColor: '#33bf5c',
+                },
+          ]}>
+          <Text
+            style={[
+              styles.saveBtnText,
+              saveBtnState == true
+                ? {
+                    color: 'gray',
+                  }
+                : {
+                    color: '#b5c1c6',
+                  },
+            ]}>
+            Save Result
+          </Text>
+        </TouchableOpacity>
+
+        <View style={{ paddingTop: 80 }} />
+
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('History', {
+              historyObject: history,
+            })
+          }
+          style={styles.historyBtn}>
+          <Text style={styles.historyBtnText}>View History</Text>
+        </TouchableOpacity>
       </View>
-
-      <View style={{ marginTop: 10 }} />
-      <Text style={{ fontSize: 15, color: '#E74C3C' }}>{calError}</Text>
-      <View style={{ marginTop: 10 }} />
-
-      {/* Text Fields */}
-      <TextInput
-        keyboardType={'number-pad'}
-        value={originalPrice}
-        onChangeText={(orgPrice) => setOriginalPrice(orgPrice)}
-        style={styles.textFields}
-        placeholder={'Original Price'}
-        placeholderTextColor="#b5c1c6"
-      />
-      <View style={{ paddingTop: 10 }} />
-      <TextInput
-        value={discountPrc}
-        keyboardType={'number-pad'}
-        onChangeText={(discountPercentage) => setDicountPrc(discountPercentage)}
-        style={styles.textFields}
-        placeholder={'Discount %'}
-        placeholderTextColor="#b5c1c6"
-        maxLength={2}
-      />
-      <View style={{ paddingTop: 20 }} />
-
-      <TouchableOpacity
-        onPress={() => calculateDiscount()}
-        style={styles.calcBtn}>
-        <Text style={styles.calcBtnText}>Calculate</Text>
-      </TouchableOpacity>
-
-      <View style={{ paddingTop: 20 }} />
-
-      <TouchableOpacity onPress={() => saveResult()} style={styles.saveBtn}>
-        <Text style={styles.saveBtnText}>Save Result</Text>
-      </TouchableOpacity>
-
-      <View style={{ paddingTop: 80 }} />
-
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('History', {
-            historyObject: history,
-          })
-        }
-        style={styles.historyBtn}>
-        <Text style={styles.historyBtnText}>View History</Text>
-      </TouchableOpacity>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -125,6 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '100',
     letterSpacing: 2,
+    fontFamily: 'Pacifico',
   },
   textFields: {
     height: 50,
@@ -132,7 +190,7 @@ const styles = StyleSheet.create({
     borderColor: '#b5c1c6',
     borderWidth: 1,
     paddingLeft: 10,
-    fontSize: 18,
+    fontSize: 15,
     borderRadius: 10,
     color: 'white',
   },
@@ -165,7 +223,7 @@ const styles = StyleSheet.create({
   historyBtn: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#305746',
+    borderColor: '#33bf5c',
     borderWidth: 1,
     borderRadius: 10,
     height: 30,
