@@ -1,11 +1,33 @@
-# Sample Snack app
+<h1 align="center" style="font-size: 48px;">📱 Discount Calculator</h1>
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by clicking the **Run** button or use the simulator by clicking **Tap to Play**. When you're done, click **Save** and share the link!
+<div align="center">
 
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Export** your project and use it with [expo-cli](https://docs.expo.io/versions/latest/introduction/installation.html).
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](#)
+[![GitHub Forks](https://img.shields.io/github/forks/saadhaxxan/Car_Game_Python_Pygame.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/m-hamzashakeel/FB-Messenger-Chat-Head-Flutter-UI/fork)
+[![GitHub Issues](https://img.shields.io/github/issues/saadhaxxan/Car_Game_Python_Pygame.svg?style=flat&label=Issues&maxAge=2592000)](https://github.com/m-hamzashakeel/FB-Messenger-Chat-Head-Flutter-UI/issues)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat&label=Contributions&colorA=red&colorB=black	)](#)
 
-All projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the **Embed** button.
+</div>
 
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.io).
 
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack-web).
+
+## 👀 Here's the Look
+
+<img src="https://user-images.githubusercontent.com/43790152/102691212-9b834e00-422c-11eb-8d18-273ca78123ee.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691216-a0e09880-422c-11eb-801f-52070dfa2cd8.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691218-a2aa5c00-422c-11eb-8c29-e367c899c28c.jpeg" height=450>
+
+## 🔑 LICENSE
+- This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
+
+## 🧑 Author
+
+#### Muhammad Hamza
+[![LinkedIn Link](https://img.shields.io/badge/Connect-Hamza-blue.svg?logo=linkedin&longCache=true&style=social&label=Connect
+)](https://www.linkedin.com/in/mhamzadev)
+
+You can also follow my GitHub Profile to stay updated about my latest projects:
+
+[![GitHub Follow](https://img.shields.io/badge/Connect-Hamza-blue.svg?logo=Github&longCache=true&style=social&label=Follow)](https://github.com/m-hamzashakeel)
+
+If you liked the repo then kindly support it by giving it a star ⭐!
+
+Copyright (c) 2020 MUHAMMAD HAMZA
