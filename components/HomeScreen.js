@@ -11,6 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
   StatusBar,
+  Modal,
 } from 'react-native';
 
 export default function HomeScreen({ navigation, route }) {
@@ -25,7 +26,7 @@ export default function HomeScreen({ navigation, route }) {
   const [finalPrice, setFinalPrice] = useState('0.00');
   const [calError, setCalError] = useState('');
   const [history, setHistory] = useState([]);
-
+  const [modalVisible, setModalVisible] = useState(false);
   const [saveBtnState, setSaveBtnState] = useState(true);
 
   const calculateDiscount = () => {
@@ -51,6 +52,7 @@ export default function HomeScreen({ navigation, route }) {
   const saveResult = () => {
     if (originalPrice != '' || discountPrc != '') {
       const resultObj = {
+        id: Math.random().toString(),
         original_Price: originalPrice,
         discount_Percentage: discountPrc,
         final_Price_Var: finalPrice,
@@ -60,6 +62,9 @@ export default function HomeScreen({ navigation, route }) {
       setOriginalPrice('');
       setDicountPrc('');
       setSaveBtnState(true);
+      setFinalPrice('0.00');
+      setSavedAmount('0.00');
+      setModalVisible(true);
     }
   };
 
@@ -72,7 +77,7 @@ export default function HomeScreen({ navigation, route }) {
         <Text style={[styles.heading, { fontFamily: 'Pacifico' }]}>
           Discount Calculator
         </Text>
-        <View style={{ marginTop: 80 }} />
+        <View style={{ marginTop: 60 }} />
 
         {/* Output Results */}
         <View style={{ flexDirection: 'row' }}>
@@ -86,6 +91,23 @@ export default function HomeScreen({ navigation, route }) {
             Rs {savedAmount}
           </Text>
         </View>
+
+        {/* Result Saved Modal */}
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Result Saved in History :)</Text>
+              <View style={{ paddingTop: 20 }} />
+              <TouchableOpacity
+                style={[styles.modalBtn, { backgroundColor: '#33bf5c' }]}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}>
+                <Text style={styles.textStyle}>OK</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
 
         <View style={{ marginTop: 10 }} />
         <Text style={{ fontSize: 15, color: '#E74C3C' }}>{calError}</Text>
@@ -242,6 +264,47 @@ const styles = StyleSheet.create({
   finalPriceText: {
     fontSize: 25,
     fontWeight: 'bold',
+    color: 'white',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: 300,
+    height: 180,
+  },
+  modalText: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontFamily: 'Pacifico',
+  },
+  modalBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E74C3C',
+    borderRadius: 5,
+    padding: 10,
+    width: 180,
+    height: 40,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  textStyle: {
     color: 'white',
   },
 });
