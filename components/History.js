@@ -14,7 +14,7 @@ import {
 
 export default function History({ navigation, route }) {
   const dataObj = route.params.historyObject;
-  console.log(route);
+
   return (
     <View style={styles.mainView}>
       <StatusBar backgroundColor="#196F3D" />
@@ -27,12 +27,14 @@ export default function History({ navigation, route }) {
 
         <FlatList
           data={dataObj}
-          renderItem={(item) => {
+          renderItem={({ item }) => {
             return (
               <View>
                 <DataTable.Row>
                   <DataTable.Cell>{item.original_Price}</DataTable.Cell>
-                  <DataTable.Cell numeric>{item.discount_Price}</DataTable.Cell>
+                  <DataTable.Cell numeric>
+                    {item.discount_Percentage}%
+                  </DataTable.Cell>
                   <DataTable.Cell numeric>
                     {item.final_Price_Var}
                   </DataTable.Cell>

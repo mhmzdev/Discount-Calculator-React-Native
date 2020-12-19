@@ -35,15 +35,10 @@ export default function HomeScreen({ navigation, route }) {
   const saveResult = () => {
     const resultObj = {
       original_Price: originalPrice,
-      dicount_Percentage: discountPrc,
+      discount_Percentage: discountPrc,
       final_Price_Var: finalPrice,
     };
-    console.log(resultObj.original_Price);
-    console.log(resultObj.dicount_Percentage);
-    console.log(resultObj.final_Price_Var);
-
     setHistory((oldHistory) => [...oldHistory, resultObj]);
-
     setOriginalPrice('');
     setDicountPrc('');
   };
