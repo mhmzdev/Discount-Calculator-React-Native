@@ -29,7 +29,7 @@ export default function HomeScreen({ navigation, route }) {
   const [saveBtnState, setSaveBtnState] = useState(true);
 
   const calculateDiscount = () => {
-    if (originalPrice != '' || discountPrc != '') {
+    if (originalPrice != '' && discountPrc != '') {
       if (discountPrc <= 100 && originalPrice >= 0 && discountPrc >= 0) {
         var saved = (originalPrice * discountPrc) / 100;
         var final_Price = originalPrice - saved;
@@ -96,7 +96,9 @@ export default function HomeScreen({ navigation, route }) {
           keyboardType={'number-pad'}
           value={originalPrice}
           onChangeText={(orgPrice) => {
-            orgPrice == '' ? setSaveBtnState(true) : setSaveBtnState(false);
+            orgPrice == '' || discountPrc == ''
+              ? setSaveBtnState(true)
+              : setSaveBtnState(false);
             setOriginalPrice(orgPrice);
           }}
           style={styles.textFields}
@@ -108,7 +110,7 @@ export default function HomeScreen({ navigation, route }) {
           value={discountPrc}
           keyboardType={'number-pad'}
           onChangeText={(discountPercentage) => {
-            discountPercentage == ''
+            discountPercentage == '' || originalPrice == ''
               ? setSaveBtnState(true)
               : setSaveBtnState(false);
             setDicountPrc(discountPercentage);
