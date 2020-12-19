@@ -9,11 +9,11 @@
 
 </div>
 
-
+When we go out for shopping especially when there is sale on different shops and outlets. Most of the times, discount percentage is specified along with original price. Every time we need to calculate the price after discount, and we do this repeatedly for each item on sale.
 
 ## 👀 Here's the Look
 
-<img src="https://user-images.githubusercontent.com/43790152/102691212-9b834e00-422c-11eb-8d18-273ca78123ee.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691216-a0e09880-422c-11eb-801f-52070dfa2cd8.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691218-a2aa5c00-422c-11eb-8c29-e367c899c28c.jpeg" height=450>
+<img src="https://user-images.githubusercontent.com/43790152/102691212-9b834e00-422c-11eb-8d18-273ca78123ee.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691216-a0e09880-422c-11eb-801f-52070dfa2cd8.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691218-a2aa5c00-422c-11eb-8c29-e367c899c28c.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691350-a12d6380-422d-11eb-9133-41b19d7e346f.jpeg" height=450> <img src="https://user-images.githubusercontent.com/43790152/102691412-2b75c780-422e-11eb-9ef0-2d1243dc8316.jpeg" height=450>
 
 ## 🔑 LICENSE
 - This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
